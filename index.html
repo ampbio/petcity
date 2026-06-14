@@ -4,6 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Security headers (via meta — reforce também no servidor) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self';
+                 style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+                 font-src https://fonts.gstatic.com;
+                 img-src 'self' data:;
+                 frame-src https://www.google.com;
+                 connect-src 'none';
+                 script-src 'none';" />
+
+  <!-- Preconnect para fontes (performance + segurança) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
   <title>Pet City – Creche & Salão Pet | Imbituba</title>
   <meta name="description" content="Banho, tosa, creche diária e hotel dog para o seu pet em Imbituba – Nova Brasília. Agendamento fácil pelo WhatsApp. Cuidado com amor!" />
   <meta name="robots" content="index, follow" />
@@ -431,6 +448,15 @@
       fill: none;
     }
 
+    /* ── Acessibilidade: foco por teclado ── */
+    .btn:focus-visible,
+    .social-btn:focus-visible,
+    .whatsapp-float:focus-visible,
+    .footer-amplifying:focus-visible {
+      outline: 3px solid rgba(255,255,255,0.9);
+      outline-offset: 3px;
+    }
+
     /* ── Animations ── */
     @keyframes pageFadeIn {
       from { opacity: 0; }
@@ -504,7 +530,7 @@
     <!-- Header -->
     <div class="header">
       <div class="logo-wrap">
-        <img src="imagens/logo.png" alt="Pet City Logo" />
+        <img src="imagens/logo.png" alt="Logo Pet City – Creche &amp; Salão Pet" fetchpriority="high" decoding="async" />
       </div>
       <div class="brand-name">Pet City</div>
       <div class="tagline">Creche & Salão Pet</div>
@@ -542,7 +568,7 @@
 
       <a class="btn btn-primary"
          href="https://wa.me/5548996211470?text=Olá!%20Gostaria%20de%20agendar%20um%20horário%20na%20Pet%20City!"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="btn-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div>
         <div class="btn-text">
           <span class="btn-label">Agende um horário aqui na PetCity!</span>
@@ -553,7 +579,7 @@
 
       <a class="btn btn-primary"
          href="https://wa.me/5548996211470?text=Olá!%20Gostaria%20de%20agendar%20uma%20estadia%20para%20meu%20pet!"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="btn-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <div class="btn-text">
           <span class="btn-label">Quero agendar estadia para meu pet!</span>
@@ -564,7 +590,7 @@
 
       <a class="btn btn-glass"
          href="https://www.instagram.com/pet.city._/"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="btn-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
         <div class="btn-text">
           <span class="btn-label">Visite nosso Insta</span>
@@ -575,7 +601,7 @@
 
       <a class="btn btn-glass"
          href="https://www.google.com/maps/place/Pet+City+Creche+e+Sal%C3%A3o+Pet/@-28.2058726,-48.7063352,17z"
-         target="_blank" rel="noopener">
+         target="_blank" rel="noopener noreferrer">
         <div class="btn-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <div class="btn-text">
           <span class="btn-label">Nossa localização</span>
@@ -594,22 +620,23 @@
       </div>
       <div class="map-card">
         <iframe
+          title="Localização Pet City no Google Maps"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3516.047395658877!2d-48.70633522451473!3d-28.205872575900468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9526cbeee677bc2f%3A0xb5adb8e2f50e8be6!2sPet%20City%20Creche%20e%20Sal%C3%A3o%20Pet!5e0!3m2!1spt-BR!2sbr!4v1780538178301!5m2!1spt-BR!2sbr"
+          sandbox="allow-scripts allow-same-origin"
           allowfullscreen=""
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Localização Pet City">
+          referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
     </div>
 
     <!-- Social links -->
     <div class="social-links">
-      <a class="social-btn" href="https://www.instagram.com/pet.city._/" target="_blank" rel="noopener">
+      <a class="social-btn" href="https://www.instagram.com/pet.city._/" target="_blank" rel="noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         Instagram
       </a>
-      <a class="social-btn" href="https://wa.me/5548996211470" target="_blank" rel="noopener">
+      <a class="social-btn" href="https://wa.me/5548996211470" target="_blank" rel="noopener noreferrer">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         WhatsApp
       </a>
@@ -618,15 +645,15 @@
     <!-- Footer -->
     <div class="footer">
       <div class="footer-copy">
-        © 2026 Pet City. Todos os direitos reservados.<br>
-        Website desenvolvido por <a class="footer-amplifying" href="https://amplifyingmkt.com.br" target="_blank" rel="noopener">AMPLIFYING</a>.
+        © 2026 Pet City. Todos os direitos reservados. · CNPJ 50.029.232/0001-40<br>
+        Website desenvolvido por <a class="footer-amplifying" href="https://amplifyingmkt.com.br" target="_blank" rel="noopener noreferrer">AMPLIFYING</a>.
       </div>
     </div>
 
   </div>
 
   <!-- Floating WhatsApp -->
-  <a class="whatsapp-float" href="https://wa.me/5548996211470" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <a class="whatsapp-float" href="https://wa.me/5548996211470" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="white" stroke-width="2"/></svg>
   </a>
 
